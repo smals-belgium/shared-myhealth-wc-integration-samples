@@ -5,9 +5,8 @@
   "author": "smals-labr",
   "license": "LGPL-3.0-or-later",
   "scripts": {
-    "build:dev": "ng build --output-hashing none --configuration development",
-    "build:prod": "ng build --configuration production",
-    "watch": "ng build --watch --configuration development",
+    "build": "ng build --output-hashing none",
+    "watch": "ng build --watch",
     "test": "echo No tests"
   },
   "private": true,

@@ -1,0 +1,41 @@
+name: Build
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 22.x ]
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+          registry-url: 'https://registry.npmjs.org'
+
+      # webcomponents
+      - run: |
+          cd webcomponents
+          npm ci
+          npm test
+          npm run build
+
+      # host-web
+      - run: |
+          cd host-web
+          npm ci
+          npm test
+          npm run build:prod
+
+      # host-mobile
+      - run: |
+          cd host-mobile
+          npm ci
+          npm test
+          npm run build:prod:sync

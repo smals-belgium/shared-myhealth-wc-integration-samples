@@ -6,8 +6,10 @@
   "license": "LGPL-3.0-or-later",
   "scripts": {
     "start": "ng serve --port 4300",
-    "build": "ng build",
-    "build:sync": "ng build && npx cap sync",
+    "build:dev": "ng build --configuration development",
+    "build:dev:sync": "npm run build:dev && npx cap sync",
+    "build:prod": "ng build --configuration production",
+    "build:prod:sync": "npm run build:prod && npx cap sync",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:watch": "ng test --watch",

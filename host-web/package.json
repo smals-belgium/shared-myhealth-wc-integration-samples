@@ -6,7 +6,8 @@
   "license": "LGPL-3.0-or-later",
   "scripts": {
     "start": "ng serve --port 4200",
-    "build": "ng build",
+    "build:dev": "ng build --configuration development",
+    "build:prod": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "echo No tests"
   },
