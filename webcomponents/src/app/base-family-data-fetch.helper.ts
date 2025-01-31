@@ -7,6 +7,6 @@ export abstract class BaseFamilyDataFetchHelper<T> extends BaseDataFetchHelper<T
   }
 
   protected async getAccessToken(): Promise<string|null> {
-    return await this.services.accessToken.getAccessToken('sample-audience')
+    return await this.services.getAccessToken('sample-audience')
   }
 }

@@ -3,7 +3,6 @@ import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { CacheService } from "./cache.service";
 import { WebComponentFamily } from "./wc-family";
-import { AccessTokenService } from "./access-token.service";
 import { ComponentServices, componentSpecVersion, Configuration, Language, RefreshCallback } from "@smals-belgium/myhealth-wc-integration";
 
 @Component({
@@ -50,7 +49,6 @@ export class SamplePrescriptionsComponent implements OnInit {
   family = input.required<WebComponentFamily>()
 
   private readonly cacheService = inject(CacheService)
-  private readonly accessTokenService = inject(AccessTokenService)
   private readonly router = inject(Router)
   private readonly activeRoute = inject(ActivatedRoute)
 
@@ -69,8 +67,8 @@ export class SamplePrescriptionsComponent implements OnInit {
     console.log("SamplePrescriptionsComponent INIT", this.family(), componentSpecVersion);
     this.version = componentSpecVersion
     this.componentServices = {
-      accessToken: this.accessTokenService,
-      cache:       this.cacheService.get(this.family()),
+      cache: this.cacheService.get(this.family()),
+      getAccessToken: async (audience: string) => `sample-host-web-access-token-${audience}`,
       registerRefreshCallback: (callback) => this.refreshCallbacks.push(callback)
     }
 

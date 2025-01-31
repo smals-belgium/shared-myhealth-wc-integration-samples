@@ -7,7 +7,7 @@ import { OfflineStoreService } from '../services/offline-store/offline-store.ser
 import { AuthService } from '../services/auth/auth.service';
 import { WebComponentFamily } from '../models/wc-family.model';
 import { IonBackButton, IonButtons, IonContent, IonHeader, IonRefresher, IonRefresherContent, IonTitle, IonToolbar } from '@ionic/angular/standalone';
-import { ComponentAccessTokenService, ComponentOfflineStore, componentSpecVersion, Configuration, Language, RegisterRefreshCallback } from '@smals-belgium/myhealth-wc-integration';
+import { ComponentOfflineStore, componentSpecVersion, Configuration, Language, RegisterRefreshCallback } from '@smals-belgium/myhealth-wc-integration';
 
 @Component({
   selector: 'app-wrapper',
@@ -69,13 +69,6 @@ export class WrapperComponent implements OnInit {
     }
   }
 
-  private makeAccessTokenService(): ComponentAccessTokenService {
-    return {
-      getAccessToken: (audience:string): Promise<string|null> => this.authService.getAccessToken(audience),
-      getIdToken: (): Promise<string|null> => this.authService.getIdToken()
-    }
-  }
-
   private async createWebComponent() {
     const component:any = document.createElement(this.template())
 
@@ -84,9 +77,9 @@ export class WrapperComponent implements OnInit {
     component.configName = Configuration.DEV
 
     const services = {
-      accessToken:  this.makeAccessTokenService(),
-      cache:        this.cacheService.get(this.family()),
+      cache: this.cacheService.get(this.family()),
       offlineStore: this.makeOfflineService(this.family()),
+      getAccessToken: (audience:string): Promise<string|null> => this.authService.getAccessToken(audience),
       registerRefreshCallback: (callback:RegisterRefreshCallback) => this.callbacks.push(callback)
     }
 

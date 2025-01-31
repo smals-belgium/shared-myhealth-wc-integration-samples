@@ -3,7 +3,7 @@ import { RouteReuseStrategy, provideRouter, withPreloading, PreloadAllModules, w
 import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
-import { APP_INITIALIZER, importProvidersFrom } from '@angular/core';
+import { APP_INITIALIZER } from '@angular/core';
 import { OfflineStoreDriver, OfflineStoreService } from './app/services/offline-store/offline-store.service';
 import { OfflineStoreIndexDBDriver } from './app/services/offline-store/offline-store-driver-indexdb';
 
