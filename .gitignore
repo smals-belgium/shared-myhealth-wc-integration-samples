@@ -4,6 +4,9 @@ dist/
 .vscode/
 .history/
 
+host-mobile/.ionic/
+host-mobile/www/
+
 npm-debug.log
 yarn-error.log
 .DS_Store

@@ -11,26 +11,8 @@ Sample code to showcase:
 
 ## Running locally
 
-First:
-
 ```
-  $ cd webcomponents
   $ npm install
-  $ npm run build:pack
-```
-
-Then, for mobile:
-
-```
-  $ cd host-mobile
-  $ npm install
-  $ npm start
-```
-
-And for web:
-
-```
-  $ cd host-web
-  $ npm install
-  $ npm start
+  $ npm run start:web     # to start the Web host
+  $ npm run start:mobile  # to start the Mobile host
 ```

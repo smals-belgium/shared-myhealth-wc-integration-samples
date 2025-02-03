@@ -18,24 +18,17 @@ jobs:
           cache: 'npm'
           cache-dependency-path: '**/package-lock.json'
           registry-url: 'https://registry.npmjs.org'
-
-      # webcomponents
-      - run: |
-          cd webcomponents
-          npm ci
-          npm test
-          npm run build
-
-      # host-web
-      - run: |
-          cd host-web
-          npm ci
-          npm test
-          npm run build:prod
-
-      # host-mobile
-      - run: |
-          cd host-mobile
-          npm ci
-          npm test
-          npm run build:prod:sync
+      - name: NPM install
+        run: npm ci
+      - name: Build web components
+        run: |
+          npm run test:wc
+          npm run build:wc
+      - name: Build host web
+        run: |
+          npm run test:web
+          npm run build:web
+      - name: Build host mobile
+        run: |
+          npm run test:mobile
+          npm run build:mobile
