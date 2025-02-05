@@ -1,6 +1,6 @@
 {
   "name": "@smals-belgium/myhealth-sample-webcomponents",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "MyHealth sample web components and integrations",
   "private": true,
   "main": "dist/browser/main.js",
