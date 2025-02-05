@@ -7,7 +7,7 @@
   "scripts": {
     "start:web": "cd host-web && ng serve --port 4200",
     "start:mobile": "cd host-mobile && ng serve --port 4300",
-    "build:wc": "cd webcomponents && ng build --configuration development --output-hashing none && npm pack --pack-destination ./dist",
+    "build:wc": "cd webcomponents && node generate-version.js && ng build --configuration development --output-hashing none && npm pack --pack-destination ./dist",
     "build:web": "cd host-web && ng build --configuration development",
     "build:mobile": "cd host-mobile && ng build --configuration development && npx cap sync",
     "test:wc": "cd webcomponents && echo No tests",

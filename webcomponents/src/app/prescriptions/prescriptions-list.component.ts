@@ -2,6 +2,7 @@ import { Component, EventEmitter, inject, Output } from '@angular/core'
 import { PrescriptionsService } from '../services/prescriptions.service'
 import { BaseWebComponent, LongPressDirective, isMobileNative } from '@smals-belgium/myhealth-wc-integration-angular'
 import { Prescription } from '../models/prescription'
+import { version } from '../../version'
 
 class SelectablePrescription {
   prescription:Prescription
@@ -32,9 +33,12 @@ class SelectablePrescription {
     div.loading {
       font-style:italic;
     }
-    div.platform {
+    div.footer {
       margin-top:24px;
       font-size:8pt;
+    }
+    div.footer > span {
+      padding: 0 4px;
     }
   `,
   template: `
@@ -58,12 +62,14 @@ class SelectablePrescription {
 @else {
     <div class="loading">Loading prescriptions...</div>
 }
-    <div class="platform">
-      Platform: {{getPlatform()}}
-      &nbsp;&nbsp;/&nbsp;&nbsp;
-      Language: {{this.language}}
-      &nbsp;&nbsp;/&nbsp;&nbsp;
-      Config: {{this.configName}}
+    <div class="footer">
+      <span>{{getPlatform()}}</span>
+      /
+      <span>{{this.language}}</span>
+      /
+      <span>{{this.configName}}</span>
+      /
+      <span>v{{getVersion()}}</span>
     </div>
   </div>
 `
@@ -107,5 +113,9 @@ export class PrescriptionsListComponent extends BaseWebComponent  {
 
   getPlatform() {
     return isMobileNative() ? 'mobile native' : 'browser'    
+  }
+
+  getVersion() {
+    return version
   }
 }

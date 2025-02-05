@@ -6,6 +6,7 @@ dist/
 
 host-mobile/.ionic/
 host-mobile/www/
+webcomponents/src/version.ts
 
 npm-debug.log
 yarn-error.log
