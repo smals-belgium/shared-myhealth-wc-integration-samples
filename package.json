@@ -12,7 +12,11 @@
     "build:mobile": "cd host-mobile && ng build --configuration development && npx cap sync",
     "test:wc": "cd webcomponents && echo No tests",
     "test:web": "cd host-web && echo No tests",
-    "test:mobile": "cd host-mobile && ng test"
+    "test:mobile": "cd host-mobile && ng test",
+    "clean:wc": "rm -rf webcomponents/.angular webcomponents/dist",
+    "clean:web": "rm -rf host-web/.angular host-web/dist",
+    "clean:mobile": "rm -rf host-mobile/.angular host-mobile/dist",
+    "clean": "npm run clean:wc && npm run clean:web && npm run clean:mobile"
   },
   "private": true,
   "dependencies": {
