@@ -2,6 +2,7 @@
 
 # 1.3.0
 
+* Upgrade to Angular v19
 * Updates according to spec v1.3
 
 # 1.2.0
