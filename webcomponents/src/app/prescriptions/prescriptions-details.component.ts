@@ -4,7 +4,6 @@ import { BaseWebComponent } from '@smals-belgium/myhealth-wc-integration-angular
 import { Prescription } from '../models/prescription'
 
 @Component({
-  standalone: true,
   imports: [],
   template: `
 @if (!isInitialized()) {

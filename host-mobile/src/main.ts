@@ -3,15 +3,18 @@ import { RouteReuseStrategy, provideRouter, withPreloading, PreloadAllModules, w
 import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
-import { APP_INITIALIZER } from '@angular/core';
-import { OfflineStoreDriver, OfflineStoreService } from './app/services/offline-store/offline-store.service';
+import { OfflineStoreService } from './app/services/offline-store/offline-store.service';
 import { OfflineStoreIndexDBDriver } from './app/services/offline-store/offline-store-driver-indexdb';
 
 import "@smals-belgium/myhealth-sample-webcomponents"
+import { inject, provideAppInitializer } from '@angular/core';
 
 
-function initOfflineStoreService(offlineStore: OfflineStoreService, driver: OfflineStoreDriver) {
+function initializeServices() {
   return async () => {
+    const offlineStore = inject(OfflineStoreService)
+    const driver = inject(OfflineStoreIndexDBDriver)
+
     await driver.init();
     await offlineStore.init(driver)
   }
@@ -22,6 +25,6 @@ bootstrapApplication(AppComponent, {
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
     provideRouter(routes, withComponentInputBinding(), withPreloading(PreloadAllModules)),
-    { provide: APP_INITIALIZER, useFactory: initOfflineStoreService, deps:[OfflineStoreService, OfflineStoreIndexDBDriver], multi:true },
+    provideAppInitializer(initializeServices())
   ],
 });

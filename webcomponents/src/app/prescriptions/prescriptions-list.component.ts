@@ -16,7 +16,6 @@ class SelectablePrescription {
 
 
 @Component({
-  standalone: true,
   imports: [LongPressDirective],
   styles:`
     div.prescriptions {
