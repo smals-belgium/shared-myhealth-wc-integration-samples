@@ -1,5 +1,9 @@
 # main
 
+# 1.4.0
+
+* Adapt web components with new unique "specs" input
+
 # 1.3.0
 
 * Upgrade to Angular v19
