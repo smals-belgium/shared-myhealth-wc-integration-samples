@@ -4,7 +4,6 @@ import { CommonModule } from "@angular/common";
 import { CacheService } from "./cache.service";
 import { WebComponentFamily } from "./wc-family";
 import { ComponentServices, componentSpecVersion, Configuration, Language, RefreshCallback } from "@smals-belgium/myhealth-wc-integration";
-import {ComponentSpecs} from '@smals-belgium/myhealth-wc-integration-angular';
 
 @Component({
   standalone: true,
@@ -54,7 +53,7 @@ export class SamplePrescriptionsComponent implements OnInit {
   configName = Configuration.DEV
   componentServices?: ComponentServices
   version?:string
-  specs!: ComponentSpecs
+  specs!: any
   refreshCallbacks: RefreshCallback[] = []
 
   constructor(private cdr: ChangeDetectorRef) { }
