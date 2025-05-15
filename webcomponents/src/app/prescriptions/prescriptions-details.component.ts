@@ -39,12 +39,12 @@ export class PrescriptionsDetailsComponent extends BaseWebComponent {
   prescription?:Prescription
   loaded = false
 
-      
+
   private async pidChanged() {
     console.log("PrescriptionsDetailsComponent / pidChanged: ", this.pid)
     if (!!this.pid) {
       const pid = parseInt(this.pid||'')
-      const prescriptions = await this.prescriptionsService.getPrescriptions("DETAILS", this.services)
+      const prescriptions = await this.prescriptionsService.getPrescriptions("DETAILS", this.specs.services)
       this.prescription = prescriptions.find((item:Prescription) => item.id === pid)
       console.log("Found prescription [%s]: ", this.pid, this.prescription)
       this.loaded = true

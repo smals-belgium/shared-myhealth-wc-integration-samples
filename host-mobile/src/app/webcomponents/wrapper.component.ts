@@ -72,10 +72,6 @@ export class WrapperComponent implements OnInit {
   private async createWebComponent() {
     const component:any = document.createElement(this.template())
 
-    component.version    = componentSpecVersion
-    component.language   = Language.EN
-    component.configName = Configuration.DEV
-
     const services = {
       cache: this.cacheService.get(this.family()),
       offlineStore: this.makeOfflineService(this.family()),
@@ -83,7 +79,12 @@ export class WrapperComponent implements OnInit {
       registerRefreshCallback: (callback:RegisterRefreshCallback) => this.callbacks.push(callback)
     }
 
-    component.services = services
+    component.specs = {
+      version: componentSpecVersion,
+      language: Language.EN,
+      configName: Configuration.DEV,
+      services: services
+    }
 
     // Register per-component output event handlers
     const outputs = this.eventHandler.getOutputs(this.family())

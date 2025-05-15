@@ -4,6 +4,7 @@ import { CommonModule } from "@angular/common";
 import { CacheService } from "./cache.service";
 import { WebComponentFamily } from "./wc-family";
 import { ComponentServices, componentSpecVersion, Configuration, Language, RefreshCallback } from "@smals-belgium/myhealth-wc-integration";
+import {ComponentSpecs} from '@smals-belgium/myhealth-wc-integration-angular';
 
 @Component({
   standalone: true,
@@ -20,10 +21,7 @@ import { ComponentServices, componentSpecVersion, Configuration, Language, Refre
           </div>
           <div style="font-weight:bold; margin-top:24px;">Sample Prescriptions</div>
           <sample-prescriptions-list
-              [version]="version"
-              [language]="language"
-              [configName]="configName"
-              [services]="componentServices"
+              [specs]="specs"
               (onSelectedPrescription)="onSelectedPrescription($event)"
               (onError)="onError($event)"
           />
@@ -32,10 +30,7 @@ import { ComponentServices, componentSpecVersion, Configuration, Language, Refre
           <div style="font-weight:bold; margin-top:45px;">Prescription Details</div>
           <div style="margin-left:16px; margin-top:13px;">
             <sample-prescriptions-details
-                [version]="version"
-                [language]="language"
-                [configName]="configName"
-                [services]="componentServices"
+                [specs]="specs"
                 [pid]="prescriptionId"
                 (onError)="onError($event)"
             />
@@ -58,7 +53,8 @@ export class SamplePrescriptionsComponent implements OnInit {
   language = Language.FR
   configName = Configuration.DEV
   componentServices?: ComponentServices
-  version?:string 
+  version?:string
+  specs!: ComponentSpecs
   refreshCallbacks: RefreshCallback[] = []
 
   constructor(private cdr: ChangeDetectorRef) { }
@@ -70,6 +66,13 @@ export class SamplePrescriptionsComponent implements OnInit {
       cache: this.cacheService.get(this.family()),
       getAccessToken: async (audience: string) => `sample-host-web-access-token-${audience}`,
       registerRefreshCallback: (callback) => this.refreshCallbacks.push(callback)
+    }
+
+    this.specs = {
+      version: this.version,
+      language: this.language,
+      configName: this.configName,
+      services: this.componentServices
     }
 
     this.activeRoute.queryParams.subscribe((params:any) => {
