@@ -64,9 +64,9 @@ class SelectablePrescription {
     <div class="footer">
       <span>{{getPlatform()}}</span>
       /
-      <span>{{this.language}}</span>
+      <span>{{this.language()}}</span>
       /
-      <span>{{this.configName}}</span>
+      <span>{{this.configName()}}</span>
       /
       <span>v{{getVersion()}}</span>
     </div>
@@ -83,7 +83,7 @@ export class PrescriptionsListComponent extends BaseWebComponent  {
   override async onInitialized() {
     await this.updatePrescriptions(false)
 
-    this.services.registerRefreshCallback( (done) => this.onRefreshData(done) )
+    this.services().registerRefreshCallback( (done) => this.onRefreshData(done) )
   }
 
   private onRefreshData(done:()=>void) {
@@ -97,7 +97,7 @@ export class PrescriptionsListComponent extends BaseWebComponent  {
   }
 
   async updatePrescriptions(force:boolean): Promise<void> {
-      const prescriptions = await this.prescriptionsService.getPrescriptions("LIST", this.services, force)
+      const prescriptions = await this.prescriptionsService.getPrescriptions("LIST", this.services(), force)
       this.prescriptions = prescriptions.map(p => new SelectablePrescription(p))
   }
 
@@ -111,7 +111,7 @@ export class PrescriptionsListComponent extends BaseWebComponent  {
   }
 
   getPlatform() {
-    return isMobileNative() ? 'mobile native' : 'browser'    
+    return isMobileNative() ? 'mobile native' : 'browser'
   }
 
   getVersion() {

@@ -1,77 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Sample Host Web - PureJS</title>
-  <link rel="stylesheet" href="../webcomponents/dist/browser/styles.css">
-  <style>
-    body {
-      font-family: Verdana,Arial,Helvetica;
-      font-size: 11pt;
-    }
-    .container {
-    }
-    .left {
-      display:inline-block;
-      float:left;
-    }
-    .right {
-      display:inline-block;
-      margin-top:16px;
-      margin-left:40px;
-    }
-  </style>
+    <meta charset="utf-8">
+    <title>Sample Host Web - PureJS</title>
+    <link rel="stylesheet" href="../webcomponents/dist/browser/styles.css">
+    <style>
+        body {
+            font-family: Verdana, Arial, Helvetica;
+            font-size: 11pt;
+        }
+        #sample-prescriptions-list-container {
+            display:inline-block;
+            float:left;
+        }
+        #sample-prescriptions-details-container {
+            display:inline-block;
+            margin-top:16px;
+            margin-left:40px;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
     <div>
-      <div class="left">
-        <sample-prescriptions-list id="list" />
-      </div>
-      <div class="right">
-        <sample-prescriptions-details id="details" />
-      </div>
+        <div id="sample-prescriptions-list-container">
+        </div>
+        <div id="sample-prescriptions-details-container">
+        </div>
     </div>
-  </div>
-  <script src="../webcomponents/dist/browser/polyfills.js"></script>
-  <script src="../webcomponents/dist/browser/main.js"></script>
-  <script>
+<script src="../webcomponents/dist/browser/polyfills.js"></script>
+<script src="../webcomponents/dist/browser/main.js"></script>
+<script>
     var callbacks = [];
     var cache = {};
-    var elList = document.getElementById('list');
-    var elDetails = document.getElementById('details');
 
     var specVersion = "1.0";
     var language = "en";
     var configName = "dev";
 
     var services = {
-      accessToken: {
-        getAccessToken:function(audience){ return "token-"+audience; },
-        getIdToken:function() { return "id-token"; }
-      },
-      cache: {
-        get:function(key) { return cache[key]; },
-        set:function(key,value) { cache[key] = value; },
-        remove:function(key) { delete cache[key]; }
-      },
-      registerRefreshCallback: function(callback){
-        callbacks.push(callback)
-      }
+        getAccessToken: function(audience) { return "token-" + audience; },
+        cache: {
+            get: function(key) { return cache[key]; },
+            set: function(key, value) { cache[key] = value; },
+            remove: function(key) { delete cache[key]; }
+        },
+        registerRefreshCallback: function(callback) {
+            callbacks.push(callback)
+        }
     };
 
-    elList.version = specVersion;
-    elList.language = language;
-    elList.configName = configName;
-    elList.services = services;
-    elList.addEventListener("onSelectedPrescription", function(event){
-      elDetails.pid = event.detail;
-    });
+    // Dynamically create and append elements after initialization
+    window.addEventListener('DOMContentLoaded', function() {
+        const leftContainer = document.getElementById('sample-prescriptions-list-container');
+        const rightContainer = document.getElementById('sample-prescriptions-details-container');
 
-    elDetails.version = specVersion;
-    elDetails.language = language;
-    elDetails.configName = configName;
-    elDetails.services = services;
-  </script>
+        const elList = document.createElement('sample-prescriptions-list');
+        const elDetails = document.createElement('sample-prescriptions-details');
+
+        elList.id = 'list';
+        elDetails.id = 'details';
+
+        elList.version = specVersion;
+        elList.language = language;
+        elList.configName = configName;
+        elList.services = services;
+
+        elDetails.version = specVersion;
+        elDetails.language = language;
+        elDetails.configName = configName;
+        elDetails.services = services;
+
+        elList.addEventListener("onSelectedPrescription", function(event) {
+            elDetails.pid = event.detail;
+        });
+
+        leftContainer.appendChild(elList);
+        rightContainer.appendChild(elDetails);
+    });
+</script>
 </body>
 </html>
