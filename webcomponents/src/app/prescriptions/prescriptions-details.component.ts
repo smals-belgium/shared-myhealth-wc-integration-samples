@@ -1,4 +1,4 @@
-import { Component, inject, Input, SimpleChanges } from '@angular/core'
+import {Component, inject, Input, OnChanges, SimpleChanges} from '@angular/core'
 import { PrescriptionsService } from '../services/prescriptions.service'
 import { BaseWebComponent } from '@smals-belgium/myhealth-wc-integration-angular'
 import { Prescription } from '../models/prescription'
@@ -6,10 +6,7 @@ import { Prescription } from '../models/prescription'
 @Component({
   imports: [],
   template: `
-@if (!isInitialized()) {
-  <div class="error">Component not properly initialized!</div>
-}
-@else if (!!prescription) {
+@if (!!prescription) {
     <div>
       <div>ID: {{prescription.id}}</div>
       <div>Name: {{prescription.name}}</div>
@@ -32,7 +29,7 @@ import { Prescription } from '../models/prescription'
 }
   `
 })
-export class PrescriptionsDetailsComponent extends BaseWebComponent {
+export class PrescriptionsDetailsComponent extends BaseWebComponent implements OnChanges {
   @Input() pid?: string
 
   private readonly prescriptionsService = inject(PrescriptionsService)
@@ -54,11 +51,7 @@ export class PrescriptionsDetailsComponent extends BaseWebComponent {
     }
   }
 
-  override async onInitialized() {
-    this.pidChanged()
-  }
-
-  override async onPropsChanged(changes: SimpleChanges) {
+  async ngOnChanges(changes: SimpleChanges) {
     if (!!changes['pid']) {
       await this.pidChanged()
     }

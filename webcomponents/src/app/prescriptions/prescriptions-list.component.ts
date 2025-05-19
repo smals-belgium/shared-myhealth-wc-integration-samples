@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Output } from '@angular/core'
+import {Component, EventEmitter, inject, OnInit, Output} from '@angular/core'
 import { PrescriptionsService } from '../services/prescriptions.service'
 import { BaseWebComponent, LongPressDirective, isMobileNative } from '@smals-belgium/myhealth-wc-integration-angular'
 import { Prescription } from '../models/prescription'
@@ -14,7 +14,6 @@ class SelectablePrescription {
   }
 }
 
-
 @Component({
   imports: [LongPressDirective],
   styles:`
@@ -29,9 +28,6 @@ class SelectablePrescription {
     div.prescription span {
       margin-left:8px;
     }
-    div.loading {
-      font-style:italic;
-    }
     div.footer {
       margin-top:24px;
       font-size:8pt;
@@ -42,8 +38,8 @@ class SelectablePrescription {
   `,
   template: `
   <div class="prescriptions">
-@if (!isInitialized()) {
-  <div class="error">Component not properly initialized!</div>
+@if (!isInitialized) {
+  <div>Loading ...</div>
 }
 @else if (!!prescriptions) {
   @for(pr of prescriptions; track pr.prescription.id) {
@@ -58,9 +54,6 @@ class SelectablePrescription {
     </div>
   }
 }
-@else {
-    <div class="loading">Loading prescriptions...</div>
-}
     <div class="footer">
       <span>{{getPlatform()}}</span>
       /
@@ -73,17 +66,18 @@ class SelectablePrescription {
   </div>
 `
 })
-export class PrescriptionsListComponent extends BaseWebComponent  {
+export class PrescriptionsListComponent extends BaseWebComponent implements OnInit {
   private readonly prescriptionsService = inject(PrescriptionsService)
   prescriptions?: SelectablePrescription[]
+  isInitialized: boolean = false;
 
   @Output() onSelectedPrescription = new EventEmitter<number>()
 
 
-  override async onInitialized() {
+  async ngOnInit(): Promise<void> {
     await this.updatePrescriptions(false)
-
     this.services().registerRefreshCallback( (done) => this.onRefreshData(done) )
+    this.isInitialized = true
   }
 
   private onRefreshData(done:()=>void) {
