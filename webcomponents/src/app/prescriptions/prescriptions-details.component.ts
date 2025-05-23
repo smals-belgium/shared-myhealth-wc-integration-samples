@@ -6,7 +6,7 @@ import { Prescription } from '../models/prescription'
 @Component({
   imports: [],
   template: `
-@if (!isInitialized()) {
+@if (!isCorrectlySetup()) {
   <div class="error">Component not properly initialized!</div>
 }
 @else if (!!prescription) {
@@ -39,7 +39,7 @@ export class PrescriptionsDetailsComponent extends BaseWebComponent {
   prescription?:Prescription
   loaded = false
 
-      
+
   private async pidChanged() {
     console.log("PrescriptionsDetailsComponent / pidChanged: ", this.pid)
     if (!!this.pid) {

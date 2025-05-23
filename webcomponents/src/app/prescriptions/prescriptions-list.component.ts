@@ -42,7 +42,7 @@ class SelectablePrescription {
   `,
   template: `
   <div class="prescriptions">
-@if (!isInitialized()) {
+@if (!isCorrectlySetup()) {
   <div class="error">Component not properly initialized!</div>
 }
 @else if (!!prescriptions) {
@@ -111,7 +111,7 @@ export class PrescriptionsListComponent extends BaseWebComponent  {
   }
 
   getPlatform() {
-    return isMobileNative() ? 'mobile native' : 'browser'    
+    return isMobileNative() ? 'mobile native' : 'browser'
   }
 
   getVersion() {
