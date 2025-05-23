@@ -25,7 +25,6 @@ import { ComponentServices, componentSpecVersion, Configuration, Language, Refre
               [configName]="configName"
               [services]="componentServices"
               (onSelectedPrescription)="onSelectedPrescription($event)"
-              (onError)="onError($event)"
           />
         </div>
         <div style="float:right; width:69%; border:0px solid blue;">
@@ -37,7 +36,6 @@ import { ComponentServices, componentSpecVersion, Configuration, Language, Refre
                 [configName]="configName"
                 [services]="componentServices"
                 [pid]="prescriptionId"
-                (onError)="onError($event)"
             />
           </div>
         </div>
@@ -58,7 +56,7 @@ export class SamplePrescriptionsComponent implements OnInit {
   language = Language.FR
   configName = Configuration.DEV
   componentServices?: ComponentServices
-  version?:string 
+  version?:string
   refreshCallbacks: RefreshCallback[] = []
 
   constructor(private cdr: ChangeDetectorRef) { }
@@ -85,11 +83,6 @@ export class SamplePrescriptionsComponent implements OnInit {
     console.log("onSelectedPrescription, pid: ", pid);
     const urlParts = this.router.url.split('?')
     this.router.navigateByUrl(`${urlParts[0]}?pid=${pid}`)
-  }
-
-  onError($event:any) {
-    const {title, text} = $event.detail
-    window.alert(`${title}: ${text}`)
   }
 
   onRefresh() {

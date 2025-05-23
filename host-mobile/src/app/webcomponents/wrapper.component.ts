@@ -91,13 +91,6 @@ export class WrapperComponent implements OnInit {
       component.addEventListener(outputName, ($event:any) => handler($event.detail))
     }
 
-    // Register error handler
-    component.addEventListener('onError', ($event:any) => {
-      console.log("ON ERROR: ", $event.detail)
-      const {title, text} = $event.detail
-      window.alert(`${title}: ${text}`)
-    });
-
     return component
   }
 
