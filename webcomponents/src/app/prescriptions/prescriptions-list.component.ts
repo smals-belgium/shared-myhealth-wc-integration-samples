@@ -1,6 +1,6 @@
 import { Component, EventEmitter, inject, Output } from '@angular/core'
 import { PrescriptionsService } from '../services/prescriptions.service'
-import { BaseWebComponent, LongPressDirective, isMobileNative } from '@smals-belgium/myhealth-wc-integration-angular'
+import { BaseWebComponent, isMobileNative } from '@smals-belgium/myhealth-wc-integration-angular'
 import { Prescription } from '../models/prescription'
 import { version } from '../../version'
 
@@ -16,7 +16,6 @@ class SelectablePrescription {
 
 
 @Component({
-  imports: [LongPressDirective],
   styles:`
     div.prescriptions {
       margin-top:16px;
@@ -48,8 +47,7 @@ class SelectablePrescription {
 @else if (!!prescriptions) {
   @for(pr of prescriptions; track pr.prescription.id) {
     <div class="prescription">
-      <input type="checkbox" [checked]="pr.selected" (change)="pr.selected = !pr.selected"/>
-      <span longPress (mouseLongPress)="selectItem(pr)" (mouseClick)="showItemDetail(pr)">
+      <span (click)="showItemDetail(pr)">
         {{pr.prescription.name}}
       @if (!!pr.prescription.counter){
         ({{pr.prescription.counter}})
@@ -104,10 +102,6 @@ export class PrescriptionsListComponent extends BaseWebComponent  {
   showItemDetail(selPrescription:SelectablePrescription) {
     console.log("Show details: ", selPrescription)
     this.onSelectedPrescription.emit(selPrescription.prescription.id)
-  }
-
-  selectItem(selPrescription:SelectablePrescription) {
-    selPrescription.selected = !selPrescription.selected
   }
 
   getPlatform() {
