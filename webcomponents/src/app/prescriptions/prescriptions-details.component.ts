@@ -38,6 +38,7 @@ export class PrescriptionsDetailsComponent extends BaseWebComponent {
   private readonly prescriptionsService = inject(PrescriptionsService)
   prescription?:Prescription
   loaded = false
+  protected override extraRequiredFields: string[] = ['pid'];
 
 
   private async pidChanged() {

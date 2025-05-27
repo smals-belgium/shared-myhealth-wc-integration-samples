@@ -41,7 +41,7 @@
     "@ionic/angular": "^8.0.0",
     "@smals-belgium/myhealth-sample-webcomponents": "file:./webcomponents",
     "@smals-belgium/myhealth-wc-integration": "~2.0.0",
-    "@smals-belgium/myhealth-wc-integration-angular": "~2.0.0",
+    "@smals-belgium/myhealth-wc-integration-angular": "~2.0.2",
     "crypto-js": "^4.2.0",
     "dexie": "^4.0.10",
     "ionicons": "^7.2.1",
