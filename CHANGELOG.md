@@ -1,4 +1,7 @@
 # main
+# 2.0.0
+
+* Updates according to spec v2.0
 
 # 1.3.0
 
