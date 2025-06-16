@@ -46,18 +46,23 @@
     var configName = "dev";
 
     var services = {
-      accessToken: {
-        getAccessToken:function(audience){ return "token-"+audience; },
-        getIdToken:function() { return "id-token"; }
-      },
-      cache: {
-        get:function(key) { return cache[key]; },
-        set:function(key,value) { cache[key] = value; },
-        remove:function(key) { delete cache[key]; }
-      },
-      registerRefreshCallback: function(callback){
-        callbacks.push(callback)
-      }
+        getAccessToken: function (audience) {
+            return "token-" + audience;
+        },
+        cache: {
+            get: function (key) {
+                return cache[key];
+            },
+            set: function (key, value) {
+                cache[key] = value;
+            },
+            remove: function (key) {
+                delete cache[key];
+            }
+        },
+        registerRefreshCallback: function (callback) {
+            callbacks.push(callback)
+        }
     };
 
     elList.version = specVersion;
